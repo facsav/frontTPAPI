@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import UserList from './UserList';
+import PostList from './PostList';
+import CommentList from './CommentList';
+import Unidades from './Components/Unidades';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';  
+import AddEdificio from './Components/AddEdificio';
+import AddPersona from './Components/AddPersona';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// Definición del componente principal App
+const App = () => {
+  return(
+
+    <BrowserRouter>
+      
+    <Routes>
+      <Route path="/" element={<Unidades/>}/>
+      <Route path="/AddEdificio" element={<AddEdificio/>}/>
+      <Route path="/AddPersona" element={<AddPersona/>}/>
+
+    </Routes>
+    
+    </BrowserRouter>
+  )
+
+};
 
 export default App;
+
+
