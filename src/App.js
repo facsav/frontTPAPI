@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import UserList from './UserList';
-import PostList from './PostList';
-import CommentList from './CommentList';
-import Unidades from './Components/Unidades';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';  
+
+import Login from './Components/Login';
 import AddEdificio from './Components/AddEdificio';
+import GetEdificio from './Components/GetEdificio';
 import AddPersona from './Components/AddPersona';
+import GetPersona from './Components/GetPersona';
+import AddUnidad from './Components/AddUnidad';
+import GetUnidad from './Components/GetUnidad';
+
 
 // Definición del componente principal App
 const App = () => {
@@ -14,9 +17,16 @@ const App = () => {
     <BrowserRouter>
       
     <Routes>
-      <Route path="/" element={<Unidades/>}/>
-      <Route path="/AddEdificio" element={<AddEdificio/>}/>
-      <Route path="/AddPersona" element={<AddPersona/>}/>
+      <Route path="/" element={<Login/>}/>
+      {/* Edificio */}
+      <Route path="/addEdificio" element={<AddEdificio/>}/>
+      <Route path="/getEdificio" element={<GetEdificio/>}/>
+      {/* Persona */}
+      <Route path="/addPersona" element={<AddPersona/>}/>
+      <Route path="/getPersona" element={<GetPersona/>}/>
+      {/* Unidades */}
+      <Route path="/addUnidad" element={<AddUnidad/>}/>
+      <Route path="/getUnidad" element={<GetUnidad/>}/>
 
     </Routes>
     

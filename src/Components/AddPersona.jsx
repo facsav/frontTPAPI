@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+//VALIDAR SI EXISTE EL USER 
+
+
 const AddPersona = () => {
 
     // Definir estados para los campos de nombre e identificador
@@ -21,7 +24,7 @@ const AddPersona = () => {
         
       };
   
-      fetch('http://localhost:8080/addPersona', {
+      fetch('/addPersona', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
