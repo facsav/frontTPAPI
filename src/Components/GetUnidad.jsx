@@ -64,9 +64,10 @@ const GetUnidad = () => {
                 onChange={(e) => setIdUnidad(e.target.value)}
                 placeholder="Id de la unidad"
             />
-            <button onClick={() => buscarUnidad(idUnidad)}>Buscar unidad</button>
+            <button className="btn btn-warning" onClick={() => buscarUnidad(idUnidad)}>Buscar unidad</button>
 
       {      console.log(edificio)}
+      {      console.log(unidad)}
             {unidad && (
                 <>
                 <div>
@@ -85,7 +86,7 @@ const GetUnidad = () => {
                         <h2>Habitado: {unidad.habitado}</h2>
                     </div>
                     <h3>Si desea borrarlo presione el botón:</h3>
-                    <button onClick={() => deleteUnidad(idUnidad)}>Borrar edificio</button>
+                    <button className="btn btn-warning" onClick={() => deleteUnidad(idUnidad)}>Borrar edificio</button>
                 </div>
                 </>
             )}

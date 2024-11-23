@@ -52,7 +52,7 @@ const GetEdificio = () => {
                 onChange={(e) => setIdEdificio(e.target.value)}
                 placeholder="Id del edificio"
             />
-            <button onClick={() => buscarEdificio(idEdificio)}>Buscar edificio</button>
+            <button className="btn btn-warning" onClick={() => buscarEdificio(idEdificio)}>Buscar edificio</button>
 
             {edificio && (
                 console.log(edificio),
@@ -64,7 +64,7 @@ const GetEdificio = () => {
                         <h2>Código: {edificio.codigo}</h2>
                     </div>
                     <h3>Si desea borrarlo presione el botón:</h3>
-                    <button onClick={() => deleteEdifico(idEdificio)}>Borrar edificio</button>
+                    <button className="btn btn-warning" onClick={() => deleteEdifico(idEdificio)}>Borrar edificio</button>
                 </div>
             )}
         </>

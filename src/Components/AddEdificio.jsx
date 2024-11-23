@@ -13,7 +13,7 @@ const AddEdificio = () => {
       direccion: direccion
     };
 
-    fetch('http://localhost:8080/addEdificio', {
+    fetch('/addEdificio', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ const AddEdificio = () => {
       </div>
 
       {/* Botón para enviar los datos */}
-      <button onClick={agregarEdificio}>Agregar Edificio</button>
+      <button className="btn btn-warning" onClick={agregarEdificio}>Agregar Edificio</button>
     </div>
   );
 

@@ -68,7 +68,7 @@ const AddUnidad = () => {
                 onChange={(e) => setCodigoEdificio(e.target.value)}
                 placeholder="Código del edificio"
             />
-            <button onClick={() => buscarEdificio(codigoEdificio)}>Buscar edificio</button>
+            <button className="btn btn-warning" onClick={() => buscarEdificio(codigoEdificio)}>Buscar edificio</button>
 
             {edificio && (
                 <div>
@@ -100,7 +100,7 @@ const AddUnidad = () => {
                         />
                     </div>
                     <h3>Si desea agregar una unidad presione el botón:</h3>
-                    <button onClick={agregarUnidad}>Agregar</button>
+                    <button className="btn btn-warning" onClick={agregarUnidad}>Agregar</button>
                 </div>
             )}
         </>

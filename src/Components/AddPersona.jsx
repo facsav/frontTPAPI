@@ -102,7 +102,7 @@ const AddPersona = () => {
         </div>
   
         {/* Botón para enviar los datos */}
-        <button onClick={agregarPersona}>Agregar Persona</button>
+        <button className="btn btn-warning" onClick={agregarPersona}>Agregar Persona</button>
       </div>
     );
   

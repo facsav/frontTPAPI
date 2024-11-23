@@ -50,7 +50,7 @@ const GetPersona = () => {
                 onChange={(e) => setDocumento(e.target.value)}
                 placeholder="Documento de la persona"
             />
-            <button onClick={() => buscarPersona(documento)}>Buscar Persona</button>
+            <button className="btn btn-warning" onClick={() => buscarPersona(documento)}>Buscar Persona</button>
 
             {persona && (
                 <div>
@@ -63,7 +63,7 @@ const GetPersona = () => {
                         <h2>tipo user: {persona.tipoUser}</h2>
                     </div>
                     <h3>Si desea borrarlo presione el botón:</h3>
-                    <button onClick={() => deletePersona(documento)}>Borrar persona</button>
+                    <button className="btn btn-warning" onClick={() => deletePersona(documento)}>Borrar persona</button>
                 </div>
             )}
         </>
