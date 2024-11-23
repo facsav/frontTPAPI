@@ -3,6 +3,7 @@ import React, { useState} from 'react';
 const GetUnidad = () => {
     const [idUnidad, setIdUnidad] = useState("");
     const [unidad, setUnidad] = useState(null);
+    const [edificio, setEdificio] = useState(null);
 
     const deleteUnidad = (codigo) => {
         fetch(`/removeUnidad/${codigo}`, {
@@ -30,12 +31,26 @@ const GetUnidad = () => {
             const unidadEncontrada = data.find(unidad => unidad.identificador == codigo);
             if (unidadEncontrada) {
                 setUnidad(unidadEncontrada);
+                buscarEdificio(idUnidad);
             } else {
                 alert("Unidad no encontrada");
             }
         })
         .catch(error => {
           console.error('Error al buscar la unidad:', error);
+        });
+    }
+
+    const buscarEdificio = (codigo) => {
+        fetch(`/getEdiPorUni/${codigo}`, {
+          method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            setEdificio(data); 
+        })
+        .catch(error => {
+          console.error('Error al buscar el edificio:', error);
         });
     }
 
@@ -51,18 +66,20 @@ const GetUnidad = () => {
             />
             <button onClick={() => buscarUnidad(idUnidad)}>Buscar unidad</button>
 
+      {      console.log(edificio)}
             {unidad && (
                 <>
-                {console.log(unidad)}
-                {(() => {
-                    const prototype = Object.getPrototypeOf(unidad);
-                    console.log(prototype.Object);  // Mostraría el prototipo, que generalmente es el objeto 'Object'
-                })()}
                 <div>
                     <h1>Unidad encontrada</h1>
                     <div>
                         <h2>ID: {unidad.identificador}</h2>
-                        {/* <h2>Edificio: {unidad.codigo}</h2> */}
+                        {edificio &&(
+                            <>
+                            <h2>Nombre del edificio: {edificio.nombre}</h2>
+                            <h2>Direccion: {edificio.direccion}</h2>
+                            </>
+                        )}
+
                         <h2>Piso: {unidad.piso}</h2>
                         <h2>Numero de departamento: {unidad.nuemro}</h2>
                         <h2>Habitado: {unidad.habitado}</h2>

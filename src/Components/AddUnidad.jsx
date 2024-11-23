@@ -1,97 +1,110 @@
 import { useState } from "react";
 
-const AddUnidad = () =>{
-
+const AddUnidad = () => {
     const [edificio, setEdificio] = useState(null);
-    const [codigoEdificio, setCodigoEdficio] = useState("");
-    /*
+    const [codigoEdificio, setCodigoEdificio] = useState("");
     const [piso, setPiso] = useState("");
     const [numero, setNumero] = useState("");
-    const [habitado, setHabitado] = useState("");
-    */
-    
-
 
     const buscarEdificio = (codigo) => {
         fetch('/edi', {
-          method: 'GET',
+            method: 'GET',
         })
         .then(response => response.json())
         .then(data => {
             const edificioEncontrado = data.find(edificio => edificio.codigo == codigo);
             if (edificioEncontrado) {
                 setEdificio(edificioEncontrado);
-                console.log(edificioEncontrado)
+                console.log("Edificio encontrado:", edificioEncontrado);
             } else {
                 alert("Edificio no encontrado");
+                setEdificio(null);
             }
         })
         .catch(error => {
-          console.error('Error al buscar el edificio:', error);
+            console.error('Error al buscar el edificio:', error);
+            setEdificio(null);
         });
     }
 
-    /*
     const agregarUnidad = () => {
-        const unidad = {
+        if (!edificio) {
+            alert("Debe buscar y seleccionar un edificio válido antes de agregar una unidad.");
+            return;
+        }
+
+        const Unidad = {
             piso: piso,
             numero: numero,
-            nombreUser: nombreUser,
-            contrasenia: contrasenia,
-            tipoUser: tipoUser
-            
-          }; 
+            habitado:  "N",
+            edificio: edificio
+        };
 
-    */
-    return(
+        fetch('/addUnidad', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(Unidad),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Unidad agregada:', data);
+            // Limpiar el formulario después de agregar la unidad
+            setPiso("");
+            setNumero("");
+        })
+        .catch(error => {
+            console.error('Error al agregar Unidad:', error);
+        });
+    }
+
+    return (
         <>
-        <h1>Agregar Unidad</h1>
+            <h1>Ingrese el edificio al que le va a agregar una Unidad</h1>
+            <input
+                type="text"
+                value={codigoEdificio}
+                onChange={(e) => setCodigoEdificio(e.target.value)}
+                placeholder="Código del edificio"
+            />
+            <button onClick={() => buscarEdificio(codigoEdificio)}>Buscar edificio</button>
 
-        <input type="text"
-        value={codigoEdificio}
-        onChange={(e) => setCodigoEdficio(e.target.value)}
-        placeholder="Edificio"        
-        />
-        
-
-        {/* <input type="text"
-        value={unidad}
-        onChange={(e) => setUnidad(e.target.value)}
-        placeholder="Edificio"        
-        /> */}
-
-
-        <button onClick={() => buscarEdificio(codigoEdificio)}>Buscar edificio</button>
-
-        {edificio && (
-            <div>
-                <h1>Edificio encontrado</h1>
+            {edificio && (
                 <div>
-                    <h3>Nombre: {edificio.nombre}</h3>
-                    <h3>Dirección: {edificio.direccion}</h3>
-                    <h3>Código: {edificio.codigo}</h3>
-                </div>
-                <h2>Unidades:</h2>
-                {edificio.unidades.map((unidad, index) => (
-                    <div key={index}>
-                        <h3>Piso: {unidad.piso}</h3>
-                        <h3>Numero de depto: {unidad.numero}</h3>
-                        <h3>Habitado: {unidad.habitado}</h3>
-                        <hr />
+                    <h2>Edificio encontrado</h2>
+                    <h1>Ingrese el edificio al que le va a agregar una Unidad</h1>
+
+                    <div>
+                        <h3>Nombre: {edificio.nombre}</h3>
+                        <h3>Dirección: {edificio.direccion}</h3>
+                        <h3>Código: {edificio.codigo}</h3>
                     </div>
-                ))}
-                <div>
-
+                    
+                    <div>
+                        <h3>Ingrese Piso</h3>
+                        <label htmlFor="piso">: </label>
+                        <input
+                            type="text"
+                            id="piso"
+                            value={piso}
+                            onChange={(e) => setPiso(e.target.value)}
+                        />
+                        <h3>Ingrese Numero de departamento</h3>
+                        <label htmlFor="numero">: </label>
+                        <input
+                            type="text"
+                            id="numero"
+                            value={numero}
+                            onChange={(e) => setNumero(e.target.value)}
+                        />
+                    </div>
+                    <h3>Si desea agregar una unidad presione el botón:</h3>
+                    <button onClick={agregarUnidad}>Agregar</button>
                 </div>
-                <h3>Si desea agregar una unidad presione el botón:</h3>
-
-            </div>
-        )}
-
+            )}
         </>
     );
-
-
 }
 
 export default AddUnidad;
