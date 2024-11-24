@@ -70,15 +70,10 @@ const AddReclamo = () => {
             if (!Array.isArray(data)) {
                 throw new Error('Respuesta inesperada del servidor');
             }
-            if (data.length > 0) {
-                const inquilinoEncontrado = data.find(inquilino => inquilino.persona.documento === usuario.documento);
-                if (inquilinoEncontrado) {
-                    console.log("Usuario es inquilino de la unidad");
-                    return true;
-                } else {
-                    alert("No tiene permisos para hacer un reclamo en esta unidad");
-                    return false;
-                }
+            const inquilinoEncontrado = data.find(inquilino => inquilino.persona.documento === usuario.documento);
+            if (inquilinoEncontrado) {
+                console.log("Usuario es inquilino de la unidad");
+                return true;
             } else {
                 return verificarDueno(unidad);
             }
@@ -127,7 +122,7 @@ const AddReclamo = () => {
                     edificio: {
                         codigo: parseInt(codigoEdificio)
                     },
-                    ubicacion: tipoReclamo,
+                    tipoReclamo: tipoReclamo,
                     descripcion: descripcion,
                     estado: "nuevo",
                     unidad: {
@@ -175,12 +170,10 @@ const AddReclamo = () => {
                 edificio: {
                     codigo: parseInt(codigoEdificio)
                 },
-                ubicacion: tipoReclamo,
+                tipoReclamo: tipoReclamo,
                 descripcion: descripcion,
                 estado: "nuevo",
-                unidad: {
-                    identificador: 0
-                }
+                unidad: null
             };
 
             console.log('Reclamo a agregar:', JSON.stringify(reclamo, null, 2)); // Log de depuración

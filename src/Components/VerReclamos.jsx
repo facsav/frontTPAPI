@@ -66,8 +66,8 @@ const VerReclamos = () => {
                                     <td>{reclamo.reclamoId}</td>
                                     <td>{reclamo.usuario.documento}</td>
                                     <td>{reclamo.edificio.direccion}</td>
-                                    <td>{reclamo.unidad.piso ? reclamo.unidad.piso : "Area comun"}</td>
-                                    <td>{reclamo.unidad.numero ? reclamo.unidad.numero : "Area Comun"}</td>
+                                    <td>{reclamo.unidad ? (reclamo.unidad.piso ? reclamo.unidad.piso : "Área común") : "-"}</td>
+                                    <td>{reclamo.unidad ? (reclamo.unidad.numero ? reclamo.unidad.numero : "Área común") : "-"}</td>
                                     <td>{reclamo.descripcion}</td>
                                     <td>{reclamo.ubicacion}</td>
                                     <td>{reclamo.fecha}</td>
