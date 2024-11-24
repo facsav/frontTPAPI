@@ -16,6 +16,12 @@ import AddDuenio from './Components/AddDuenio';
 import AddInquilino from './Components/AddInquilo';
 import LiberarUnidad from './Components/LiberarUnidad';
 import TransferirUniDue from './Components/TransferirUniDue';
+import PruebaLog from './Components/PruebaLog';
+
+import VerReclamos from './Components/VerReclamos';
+import GetAllReclamos from './Components/GetAllReclamos';
+
+import AddReclamo from './Components/AddReclamo';
 
 // Definición del componente principal App
 const App = () => {
@@ -44,6 +50,12 @@ const App = () => {
             <Route path="/addInquilino" element={<AddInquilino/>}/>
             <Route path="/liberarUnidad" element={<LiberarUnidad/>}/>
             <Route path="/transferirUniDue" element={<TransferirUniDue/>}/>
+            <Route path="/pruebaLog" element={<PruebaLog/>}/>
+            <Route path="/verReclamos" element={<VerReclamos/>}/> 
+            <Route path="/VerTodosReclamos" element={<GetAllReclamos/>}/> 
+
+            <Route path="/addReclamo" element={<AddReclamo/>}/> 
+
 
           </Routes>
 
