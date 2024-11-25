@@ -24,6 +24,10 @@ import GetAllReclamos from './Components/GetAllReclamos';
 import AddReclamo from './Components/AddReclamo';
 import CambiarEstado from './Components/CambiarEstado';
 
+import GetReclamosByPersona from './Components/GetReclamosByPersonas';
+import GetReclamosById from './Components/GetReclamosById';
+import GetReclamosByEdi from './Components/GetReclamosByEdi';
+
 import VerReclamosDeEdificio from './Components/VerReclamosDeEdificio';
 import NavBar from './Components/Navbar';
 
@@ -73,6 +77,9 @@ const App = () => {
             <Route path="/VerReclamosDeEdificio" element={<VerReclamosDeEdificio/>}/>
             <Route path="/addReclamo" element={<AddReclamo/>}/> 
             <Route path="/CambiarEstado" element={<CambiarEstado/>}/>
+            <Route path="/getReclamosByPersona" element={<GetReclamosByPersona/>}/>
+            <Route path="/getReclamosById" element={<GetReclamosById/>}/>
+            <Route path="/getReclamosByEdi" element={<GetReclamosByEdi/>}/> 
 
 
 

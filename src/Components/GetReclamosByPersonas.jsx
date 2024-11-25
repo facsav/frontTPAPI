@@ -1,63 +1,69 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "./AuthContext";
-import { useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
-const GetAllReclamos = () => {
+const GetReclamosByPersona = () => {
     const { usuario } = useContext(AuthContext);
+    const [documento, setDocumento] = useState('');
+    const [persona, setPersona] = useState(null);
     const [reclamos, setReclamos] = useState([]);
-    const [mensaje, setMensaje] = useState('');
-    const navigate = useNavigate();
 
-    const buscarReclamos = () => {
-        if (usuario) {
-            fetch('/reclamos', {
-                method: 'GET',
-            })
-            .then(response => response.json())
-            .then(data => {
-                setReclamos(data);
-                if (data.length === 0) {
-                    setMensaje('No hay reclamos para mostrar');
-                } else {
-                    setMensaje('');
-                }
-            })
-            .catch(error => {
-                console.error('Error al buscar los reclamos:', error);
-                setMensaje('Error al buscar los reclamos');
-            });
-        }
-    };
+    const buscarPersona = (documento) => {
+        fetch('/per', {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            const personaEncontrada = data.find(persona => persona.documento == documento);
+            if (personaEncontrada) {
+                setPersona(personaEncontrada);
+                buscarReclamos(documento);
+            } else {
+                alert("Persona no encontrada");
+            }
+        })
+        .catch(error => {
+            console.error('Error al buscar la persona:', error);
+        });
+    }
+
+    const buscarReclamos = (documento) => {
+        fetch(`/reclamosPersona/${documento}`, {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            setReclamos(data);
+        })
+        .catch(error => {
+            console.error('Error al buscar los reclamos:', error);
+        });
+    }
 
     if (!usuario) {
         return <div>No hay usuario logueado</div>;
     }
 
-    console.log("Usuario logueado:", usuario);
     if (usuario.tipoUser !== 'administrador') {
-        return <div>No tiene permisos para ver reclamos</div>;
+        return <div>No tiene permisos para ver esta página</div>;
     }
-    console.log(reclamos)
 
     return (
+        <>
+            <h1>Buscar Reclamos por Persona</h1>
+            <input
+                type="text"
+                value={documento}
+                onChange={(e) => setDocumento(e.target.value)}
+                placeholder="Documento de la persona"
+            />
+            <button className="btn btn-warning" onClick={() => buscarPersona(documento)}>Buscar Persona</button>
 
-        <div>
-            <h1>Información del Usuario</h1>
-            <p>Nombre: {usuario.nombre}</p>
-            <p>DNI: {usuario.documento}</p>
-            <p>Tipo de Usuario: {usuario.tipoUser}</p>
-            <button className="btn btn-warning" onClick={buscarReclamos}>Buscar Reclamos</button>
-            <button className="btn btn-warning" onClick={() => navigate('/getReclamosByPersona')}>Ver reclamos por personas</button>
-            <button className="btn btn-warning" onClick={() => navigate('/getReclamosById')}>Ver reclamos por id</button>
-            <button className="btn btn-warning" onClick={() => navigate('/getReclamosByEdi')}>Ver reclamos por Edificio</button>
-            <h2>Lista de Reclamos</h2>
-            {mensaje && <p>{mensaje}</p>}
             {reclamos.length > 0 && (
                 <div className="departures">
                     <table className="contenido table table-dark table-striped">
                         <thead>
                             <tr>
-                            <th id="table-title" scope="col">#</th>
+                                <th id="table-title" scope="col">#</th>
                                 <th id="table-title" scope="col">ID</th>
                                 <th id="table-title" scope="col">Documento</th>
                                 <th id="table-title" scope="col">Edificio</th>
@@ -70,7 +76,7 @@ const GetAllReclamos = () => {
                         </thead>
                         <tbody id="content">
                             {reclamos.map((reclamo, index) => (
-                                <tr /*key={reclamo.id}*/>
+                                <tr key={index}>
                                     <th scope="row">-</th>
                                     <td>{reclamo.reclamoId}</td>
                                     <td>{reclamo.usuario.documento}</td>
@@ -80,14 +86,14 @@ const GetAllReclamos = () => {
                                     <td>{reclamo.descripcion}</td>
                                     <td>{reclamo.ubicacion}</td>
                                     <td>{reclamo.estado}</td>
-                            </tr>
+                                </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
-        </div>
+        </>
     );
 }
 
-export default GetAllReclamos;
+export default GetReclamosByPersona;
