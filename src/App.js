@@ -25,6 +25,7 @@ import AddReclamo from './Components/AddReclamo';
 import CambiarEstado from './Components/CambiarEstado';
 
 import VerReclamosDeEdificio from './Components/VerReclamosDeEdificio';
+import NavBar from './Components/Navbar';
 
 // Definición del componente principal App
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
       <AuthProvider>
         
         <Router>
+          <NavBar/>
           <Routes>            
             <Route path="/" element={<Login/>}/>
             <Route path="/menu" element={<Menu/>}/>
@@ -68,11 +70,11 @@ const App = () => {
             {/* Reclamos */}
             <Route path="/verReclamos" element={<VerReclamos/>}/> 
             <Route path="/VerTodosReclamos" element={<GetAllReclamos/>}/> 
-
+            <Route path="/VerReclamosDeEdificio" element={<VerReclamosDeEdificio/>}/>
             <Route path="/addReclamo" element={<AddReclamo/>}/> 
             <Route path="/CambiarEstado" element={<CambiarEstado/>}/>
 
-            <Route path="/VerReclamosDeEdificio" element={<VerReclamosDeEdificio/>}/>
+
 
 
 

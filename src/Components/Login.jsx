@@ -35,21 +35,24 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <input
-                type="text"
-                value={nombreUsuario}
-                onChange={(e) => setNombreUsuario(e.target.value)}
-                placeholder="Nombre de usuario"
-            />
-            <input
-                type="password"
-                value={contrasenia}
-                onChange={(e) => setContrasenia(e.target.value)}
-                placeholder="Contraseña"
-            />
-            <button className="btn btn-warning" onClick={handleLogin}>Login</button>
+        <div className="container">
+
+            <div className='login'>
+                <h1>Login</h1>
+                <input
+                    type="text"
+                    value={nombreUsuario}
+                    onChange={(e) => setNombreUsuario(e.target.value)}
+                    placeholder="Nombre de usuario"
+                />
+                <input
+                    type="password"
+                    value={contrasenia}
+                    onChange={(e) => setContrasenia(e.target.value)}
+                    placeholder="Contraseña"
+                />
+                <button className="btn btn-warning" onClick={handleLogin}>Login</button>
+            </div>
         </div>
     );
 };

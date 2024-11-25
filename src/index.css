@@ -57,6 +57,40 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('/public/fondo.jpg');
+  background-size: cover;
+}
+
+.login{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+  width: 40ch;
+  border-radius: 10px;
+  background-color: rgb(24, 24, 24);
+  
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  
+}
+
+input{
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px;
+  width: 20ch;
+
+}
+
+.btn{
+  margin:5px;
 }
 
 code {

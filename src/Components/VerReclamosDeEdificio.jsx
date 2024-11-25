@@ -117,7 +117,6 @@ const VerReclamosDeEdificio = () => {
                                 <th id="table-title" scope="col">Nro Depto</th>
                                 <th id="table-title" scope="col">Descripción</th>
                                 <th id="table-title" scope="col">Tipo de reclamo</th>
-                                <th id="table-title" scope="col">Fecha</th>
                                 <th id="table-title" scope="col">Estado</th>
                             </tr>
                         </thead>
@@ -132,7 +131,6 @@ const VerReclamosDeEdificio = () => {
                                     <td>{reclamo.unidad ? (reclamo.unidad.numero ? reclamo.unidad.numero : "Área común") : "-"}</td>
                                     <td>{reclamo.descripcion}</td>
                                     <td>{reclamo.ubicacion}</td>
-                                    <td>{reclamo.fecha}</td>
                                     <td>{reclamo.estado}</td>
                                 </tr>
                             ))}

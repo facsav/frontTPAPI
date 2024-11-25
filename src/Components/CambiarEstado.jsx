@@ -93,8 +93,8 @@ const CambiarEstado = () => {
             </div>
             {mensaje && <p>{mensaje}</p>}
             {reclamo && (
-                <div>
-                    <table className="contenido table table-dark table-striped">
+                <div className="departures" >
+                    <table className=" contenido table table-dark table-striped">
                         <thead>
                             <tr>
                                 <th id="table-title" scope="col">#</th>
@@ -105,7 +105,6 @@ const CambiarEstado = () => {
                                 <th id="table-title" scope="col">Nro Depto</th>
                                 <th id="table-title" scope="col">Descripción</th>
                                 <th id="table-title" scope="col">Tipo de reclamo</th>
-                                <th id="table-title" scope="col">Fecha</th>
                                 <th id="table-title" scope="col">Estado</th>
                             </tr>
                         </thead>
@@ -119,13 +118,12 @@ const CambiarEstado = () => {
                                 <td>{reclamo.unidad ? reclamo.unidad.numero : "Área común"}</td>
                                 <td>{reclamo.descripcion}</td>
                                 <td>{reclamo.ubicacion}</td>
-                                <td>{reclamo.fecha}</td>
                                 <td>{reclamo.estado}</td>
                             </tr>
                         </tbody>
                     </table>
                     <div>
-                        <label htmlFor="nuevoEstado">Nuevo Estado: </label>
+                        <label style={{color:"white"}} htmlFor="nuevoEstado">Nuevo Estado: </label>
                         <input
                             type="text"
                             id="nuevoEstado"
