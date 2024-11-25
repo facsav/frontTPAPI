@@ -95,7 +95,7 @@ const TransferirUniDue = () => {
             .then(text => {
                 console.log('Respuesta del servidor al realizar la transferencia:', text);
                 setMensaje('Transferencia realizada exitosamente');
-                // Limpiar el formulario después de la transferencia
+
                 setCodigoUnidad('');
                 setUnidad(null);
                 setDueños([]);

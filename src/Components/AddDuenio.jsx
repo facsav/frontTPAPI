@@ -65,7 +65,6 @@ const AddDuenio = () => {
             persona: persona
         };
 
-        console.log('Datos del dueño a agregar:', duenioData); // Log de depuración
 
         fetch('/addDuenio', {
             method: 'POST',
@@ -84,7 +83,6 @@ const AddDuenio = () => {
             console.log('Dueño agregado:', data);
             alert('Dueño agregado con éxito');
             setMensaje('Dueño agregado exitosamente');
-            // Limpiar el formulario después de agregar el dueño
             setIdUnidad('');
             setUnidad(null);
             setDocumento('');

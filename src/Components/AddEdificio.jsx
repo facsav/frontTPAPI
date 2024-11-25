@@ -24,12 +24,11 @@ const AddEdificio = () => {
       if (!response.ok) {
         throw new Error('Error en la respuesta del servidor');
       }
-      return response.text(); // Cambiar a response.text() para manejar respuestas de texto
+      return response.text(); 
     })
     .then(text => {
       console.log('Respuesta del servidor al agregar edificio:', text);
       setMensaje('Edificio agregado exitosamente');
-      // Limpiar los campos después de agregar el edificio
       setNombre('');
       setDireccion('');
     })

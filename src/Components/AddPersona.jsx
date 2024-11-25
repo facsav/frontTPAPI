@@ -20,7 +20,6 @@ const AddPersona = () => {
             tipoUser: tipoUser
         };
 
-        console.log('Persona a agregar:', Persona); // Log de depuración
 
         fetch('/addPersona', {
             method: 'POST',
@@ -41,14 +40,11 @@ const AddPersona = () => {
             console.log('Respuesta del servidor al agregar persona:', data);
             setMensaje('Persona agregada exitosamente');
             setMensajeExito('Persona agregada con éxito');
-            // Limpiar los campos después de agregar la persona
             setDocumento('');
             setNombre('');
             setNombreUser('');
             setContrasenia('');
-            setTipoUser('general'); // Restablecer el valor predeterminado
-
-            // Limpiar el mensaje de éxito después de unos segundos
+            setTipoUser('general'); 
             setTimeout(() => {
                 setMensajeExito('');
             }, 3000);

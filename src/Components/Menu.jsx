@@ -62,6 +62,8 @@ const Menu = () => {
                     <button class="btn btn-warning" onClick={() => navigate('/VerReclamosDeEdificio')}>Ver reclamos en mi edificio</button>
                     <button class="btn btn-warning" onClick={() => navigate('/verReclamos')}>Ver reclamos hechos por mi</button>
                     <button class="btn btn-warning" onClick={() => navigate('/addReclamo')}>agregar reclamos</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/addImagen')}>agregar imagen a mi reclamo</button>
+                    
 
 
                 </>

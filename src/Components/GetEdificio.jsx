@@ -21,7 +21,8 @@ const GetEdificio = () => {
         .then(message => {
             console.log(message);
             setMensaje('Edificio eliminado exitosamente');
-            setEdificio(null); // Limpiar el estado del edificio después de eliminarlo
+            setEdificio(null); 
+            
         })
         .catch(err => {
             console.error('Error:', err);

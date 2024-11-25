@@ -159,8 +159,6 @@ const AddReclamo = () => {
                     }
                 };
 
-                console.log('Reclamo a agregar:', JSON.stringify(reclamo, null, 2)); // Log de depuración
-
                 fetch('/addReclamo', {
                     method: 'POST',
                     headers: {
@@ -172,17 +170,16 @@ const AddReclamo = () => {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta del servidor');
                     }
-                    return response.text(); // Cambiar a response.text() para manejar respuestas de texto
+                    return response.text(); 
                 })
                 .then(text => {
                     console.log('Respuesta del servidor al agregar reclamo:', text);
                     setMensaje('Reclamo agregado exitosamente');
-                    // Limpiar el formulario después de agregar el reclamo
                     setCodigoEdificio('');
                     setUbicacion('');
                     setDescripcion('');
                     setIdUnidad('');
-                    setTipoReclamo('comun'); // Restablecer el valor predeterminado
+                    setTipoReclamo('comun'); 
                     setEdificio(null);
                     setUnidad(null);
                     setHabilitado(false);
@@ -206,7 +203,6 @@ const AddReclamo = () => {
                 unidad: null
             };
 
-            console.log('Reclamo a agregar:', JSON.stringify(reclamo, null, 2)); // Log de depuración
 
             fetch('/addReclamo', {
                 method: 'POST',
@@ -219,17 +215,17 @@ const AddReclamo = () => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta del servidor');
                 }
-                return response.text(); // Cambiar a response.text() para manejar respuestas de texto
+                return response.text(); 
             })
             .then(text => {
                 console.log('Respuesta del servidor al agregar reclamo:', text);
                 setMensaje('Reclamo agregado exitosamente');
-                // Limpiar el formulario después de agregar el reclamo
+
                 setCodigoEdificio('');
                 setUbicacion('');
                 setDescripcion('');
                 setIdUnidad('');
-                setTipoReclamo('comun'); // Restablecer el valor predeterminado
+                setTipoReclamo('comun'); 
                 setEdificio(null);
                 setUnidad(null);
                 setHabilitado(false);

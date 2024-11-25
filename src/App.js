@@ -17,6 +17,8 @@ import GetAllPersonas from './Components/GetAllPersonas';
 import GetAllInquilinos from './Components/GetAllInquilinos';
 import GetAllDuenios from './Components/GetAllDuenios';
 
+import AddImagen from './Components/AddImagen';
+
 import AddDuenio from './Components/AddDuenio';
 import AddInquilino from './Components/AddInquilo';
 import LiberarUnidad from './Components/LiberarUnidad';
@@ -88,6 +90,10 @@ const App = () => {
             <Route path="/getReclamosByPersona" element={<GetReclamosByPersona/>}/>
             <Route path="/getReclamosById" element={<GetReclamosById/>}/>
             <Route path="/getReclamosByEdi" element={<GetReclamosByEdi/>}/> 
+              
+            {/* Imagen */}  
+            <Route path="/addImagen" element={<AddImagen/>}/>
+              
 
 
 
