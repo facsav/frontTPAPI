@@ -12,11 +12,15 @@ import GetPersona from './Components/GetPersona';
 import AddUnidad from './Components/AddUnidad';
 import GetUnidad from './Components/GetUnidad';
 
+import GetAllUnidades from './Components/GetAllUnidades';
+import GetAllPersonas from './Components/GetAllPersonas';
+import GetAllInquilinos from './Components/GetAllInquilinos';
+import GetAllDuenios from './Components/GetAllDuenios';
+
 import AddDuenio from './Components/AddDuenio';
 import AddInquilino from './Components/AddInquilo';
 import LiberarUnidad from './Components/LiberarUnidad';
 import TransferirUniDue from './Components/TransferirUniDue';
-import PruebaLog from './Components/PruebaLog';
 
 import VerReclamos from './Components/VerReclamos';
 import GetAllReclamos from './Components/GetAllReclamos';
@@ -51,6 +55,7 @@ const App = () => {
             <Route path='/verEdificios' element= {<GetAllEdi/>}/>
             {/* Persona */}
             {/* FUNCIONAN PIOLA */}
+            <Route path="/getAllPersonas" element={<GetAllPersonas/>}/>
             <Route path="/addPersona" element={<AddPersona/>}/>
             <Route path="/getPersona" element={<GetPersona/>}/>
 
@@ -58,13 +63,16 @@ const App = () => {
             {/* FUNCIONAN PIOLA */}
             <Route path="/addUnidad" element={<AddUnidad/>}/>
             <Route path="/getUnidad" element={<GetUnidad/>}/>
+            <Route path="/getAllUnidades" element={<GetAllUnidades/>}/>
 
             {/* Duenio */}
             {/* FUNCIONAN PIOLA */}
             <Route path="/addDuenio" element={<AddDuenio/>}/>
+            <Route path="/getAllDuenios" element={<GetAllDuenios/>}/>
             
             {/* Inquilino */}
             {/* FUNCIONAN PIOLA */}
+            <Route path="/getAllInquilinos" element={<GetAllInquilinos/>}/> 
             <Route path="/addInquilino" element={<AddInquilino/>}/>
             <Route path="/liberarUnidad" element={<LiberarUnidad/>}/>
             

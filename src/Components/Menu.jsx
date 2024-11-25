@@ -29,13 +29,19 @@ const Menu = () => {
                         <button className="btn btn-warning" onClick={() => navigate('/addEdificio')}>Agregar Edificio</button>
                         <button className="btn btn-warning" onClick={() => navigate('/getEdificio')}>Ver y borrar edificios</button>
                         <h3>Unidades</h3>
+                        <button className="btn btn-warning" onClick={() => navigate('/getAllUnidades')}>Ver todas las unidades</button>
                         <button className="btn btn-warning" onClick={() => navigate('/getUnidad')}>Ver y borrar unidades</button>
                         <button className="btn btn-warning" onClick={() => navigate('/addUnidad')}>Agregar Unidad</button>
-                        <button className="btn btn-warning" onClick={() => navigate('/liberarUnidad')}>Liberar Unidad</button>
-                        <button className="btn btn-warning" onClick={() => navigate('/addInquilino')}>Agregar Inquilino</button>
                         <h3>Personas</h3>
+                        <button className="btn btn-warning" onClick={() => navigate('/getAllPersonas')}>Ver todas las Personas</button>
                         <button className="btn btn-warning" onClick={() => navigate('/addPersona')}>Agregar Persona</button>
                         <button className="btn btn-warning" onClick={() => navigate('/getPersona')}>Ver y borrar personas</button>
+                        <h3>Inquilinos</h3>
+                        <button className="btn btn-warning" onClick={() => navigate('/getAllInquilinos')}>Ver todos los inquilinos</button>
+                        <button className="btn btn-warning" onClick={() => navigate('/liberarUnidad')}>Liberar Unidad</button>
+                        <button className="btn btn-warning" onClick={() => navigate('/addInquilino')}>Agregar Inquilino</button>
+                        <h3>Dueños</h3>
+                        <button className="btn btn-warning" onClick={() => navigate('/getAllDuenios')}>Ver todos los dueños</button>
                         <button className="btn btn-warning" onClick={() => navigate('/addDuenio')}>Agregar Dueño</button>
                         <button className="btn btn-warning" onClick={() => navigate('/transferirUniDue')}>Transferir Unidad a Dueño</button>
                         <h3>Reclamos</h3>
