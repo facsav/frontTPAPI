@@ -59,6 +59,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-image: url('/public/fondo.jpg');
   background-size: cover;
+  height: auto;
 }
 
 .login{

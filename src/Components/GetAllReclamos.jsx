@@ -41,7 +41,7 @@ const GetAllReclamos = () => {
 
     return (
 
-        <div>
+        <div style={{minHeight:'auto'}}>
             <h1>Información del Usuario</h1>
             <p>Nombre: {usuario.nombre}</p>
             <p>DNI: {usuario.documento}</p>
@@ -53,7 +53,7 @@ const GetAllReclamos = () => {
             <h2>Lista de Reclamos</h2>
             {mensaje && <p>{mensaje}</p>}
             {reclamos.length > 0 && (
-                <div className="container">
+                <div style={{marginTop:'20vh'}} className="container">
 
                     <div className="departures">
                         <table className="contenido table table-dark table-striped">
