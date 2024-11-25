@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const AddDuenio = () => {
+    const { usuario } = useContext(AuthContext);
     const [idUnidad, setIdUnidad] = useState('');
     const [unidad, setUnidad] = useState(null);
     const [documento, setDocumento] = useState('');
@@ -80,6 +82,7 @@ const AddDuenio = () => {
         })
         .then(data => {
             console.log('Dueño agregado:', data);
+            alert('Dueño agregado con éxito');
             setMensaje('Dueño agregado exitosamente');
             // Limpiar el formulario después de agregar el dueño
             setIdUnidad('');
@@ -89,8 +92,17 @@ const AddDuenio = () => {
         })
         .catch(error => {
             console.error('Error al agregar dueño:', error);
+            alert('Error al agregar el dueño');
             setMensaje('Error al agregar dueño');
         });
+    }
+
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para agregar un dueño</div>;
     }
 
     return (

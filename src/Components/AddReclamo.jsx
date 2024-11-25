@@ -5,6 +5,7 @@ const AddReclamo = () => {
     const { usuario } = useContext(AuthContext);
     const [codigoEdificio, setCodigoEdificio] = useState('');
     const [edificio, setEdificio] = useState(null);
+    const [habilitado, setHabilitado] = useState(false);
     const [tipoReclamo, setTipoReclamo] = useState('comun'); // Valor predeterminado
     const [ubicacion, setUbicacion] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -21,15 +22,14 @@ const AddReclamo = () => {
     }
 
     const buscarEdificio = (codigo) => {
-        fetch('/edi', {
+        fetch(`/edi`, {
             method: 'GET',
         })
         .then(response => response.json())
         .then(data => {
             const edificioEncontrado = data.find(edificio => edificio.codigo == codigo);
             if (edificioEncontrado) {
-                setEdificio(edificioEncontrado);
-                console.log("Edificio encontrado:", edificioEncontrado);
+                verificarHabilitacionEdificio(edificioEncontrado);
             } else {
                 alert("Edificio no encontrado");
                 setEdificio(null);
@@ -38,6 +38,30 @@ const AddReclamo = () => {
         .catch(error => {
             console.error('Error al buscar el edificio:', error);
             setEdificio(null);
+        });
+    };
+
+    const verificarHabilitacionEdificio = (edificio) => {
+        fetch(`/habilitadosEdi/${edificio.codigo}`, {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            const habilitado = data.some(persona => persona.nombre === usuario.documento);
+            if (habilitado) {
+                setEdificio(edificio);
+                setHabilitado(true);
+                console.log("Usuario habilitado para hacer reclamos en el edificio:", edificio);
+            } else {
+                alert("No tiene permisos para hacer un reclamo en este edificio");
+                setEdificio(null);
+                setHabilitado(false);
+            }
+        })
+        .catch(error => {
+            console.error('Error al verificar habilitación del edificio:', error);
+            setEdificio(null);
+            setHabilitado(false);
         });
     };
 
@@ -70,10 +94,15 @@ const AddReclamo = () => {
             if (!Array.isArray(data)) {
                 throw new Error('Respuesta inesperada del servidor');
             }
-            const inquilinoEncontrado = data.find(inquilino => inquilino.persona.documento === usuario.documento);
-            if (inquilinoEncontrado) {
-                console.log("Usuario es inquilino de la unidad");
-                return true;
+            if (data.length > 0) {
+                const inquilinoEncontrado = data.find(inquilino => inquilino.persona.documento === usuario.documento);
+                if (inquilinoEncontrado) {
+                    console.log("Usuario es inquilino de la unidad");
+                    return true;
+                } else {
+                    alert("No tiene permisos para hacer un reclamo en esta unidad");
+                    return false;
+                }
             } else {
                 return verificarDueno(unidad);
             }
@@ -143,10 +172,10 @@ const AddReclamo = () => {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta del servidor');
                     }
-                    return response.json();
+                    return response.text(); // Cambiar a response.text() para manejar respuestas de texto
                 })
-                .then(data => {
-                    console.log('Reclamo agregado:', data);
+                .then(text => {
+                    console.log('Respuesta del servidor al agregar reclamo:', text);
                     setMensaje('Reclamo agregado exitosamente');
                     // Limpiar el formulario después de agregar el reclamo
                     setCodigoEdificio('');
@@ -156,6 +185,7 @@ const AddReclamo = () => {
                     setTipoReclamo('comun'); // Restablecer el valor predeterminado
                     setEdificio(null);
                     setUnidad(null);
+                    setHabilitado(false);
                 })
                 .catch(error => {
                     console.error('Error al agregar Reclamo:', error);
@@ -189,10 +219,10 @@ const AddReclamo = () => {
                 if (!response.ok) {
                     throw new Error('Error en la respuesta del servidor');
                 }
-                return response.json();
+                return response.text(); // Cambiar a response.text() para manejar respuestas de texto
             })
-            .then(data => {
-                console.log('Reclamo agregado:', data);
+            .then(text => {
+                console.log('Respuesta del servidor al agregar reclamo:', text);
                 setMensaje('Reclamo agregado exitosamente');
                 // Limpiar el formulario después de agregar el reclamo
                 setCodigoEdificio('');
@@ -202,6 +232,7 @@ const AddReclamo = () => {
                 setTipoReclamo('comun'); // Restablecer el valor predeterminado
                 setEdificio(null);
                 setUnidad(null);
+                setHabilitado(false);
             })
             .catch(error => {
                 console.error('Error al agregar Reclamo:', error);
@@ -213,56 +244,59 @@ const AddReclamo = () => {
     return (
         <div>
             <h1>Agregar Reclamo</h1>
-            {!edificio ? (
-                <div>
-                    <label htmlFor="codigoEdificio">Código del Edificio: </label>
-                    <input
-                        type="text"
-                        id="codigoEdificio"
-                        value={codigoEdificio}
-                        onChange={(e) => setCodigoEdificio(e.target.value)}
-                    />
-                    <button className="btn btn-warning" onClick={() => buscarEdificio(codigoEdificio)}>Buscar Edificio</button>
-                </div>
-            ) : (
+            <div>
+                <label htmlFor="codigoEdificio">Código del Edificio: </label>
+                <input
+                    type="text"
+                    id="codigoEdificio"
+                    value={codigoEdificio}
+                    onChange={(e) => setCodigoEdificio(e.target.value)}
+                />
+                <button className="btn btn-warning" onClick={() => buscarEdificio(codigoEdificio)}>Buscar Edificio</button>
+            </div>
+            {mensaje && <p>{mensaje}</p>}
+            {edificio && (
                 <div>
                     <h2>Edificio encontrado: {edificio.nombre}</h2>
-                    <div>
-                        <label htmlFor="descripcion">Descripción: </label>
-                        <input
-                            type="text"
-                            id="descripcion"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="tipoReclamo">Tipo de Reclamo: </label>
-                        <select
-                            id="tipoReclamo"
-                            value={tipoReclamo}
-                            onChange={(e) => setTipoReclamo(e.target.value)}
-                        >
-                            <option value="comun">Área Común</option>
-                            <option value="unidad">Unidad</option>
-                        </select>
-                    </div>
-                    {tipoReclamo === 'unidad' && (
-                        <div>
-                            <label htmlFor="idUnidad">ID de la Unidad: </label>
-                            <input
-                                type="text"
-                                id="idUnidad"
-                                value={idUnidad}
-                                onChange={(e) => setIdUnidad(e.target.value)}
-                            />
-                            <button className="btn btn-warning" onClick={() => buscarUnidad(idUnidad)}>Buscar Unidad</button>
-                        </div>
+                    {habilitado && (
+                        <>
+                            <div>
+                                <label htmlFor="descripcion">Descripción: </label>
+                                <input
+                                    type="text"
+                                    id="descripcion"
+                                    value={descripcion}
+                                    onChange={(e) => setDescripcion(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="tipoReclamo">Tipo de Reclamo: </label>
+                                <select
+                                    id="tipoReclamo"
+                                    value={tipoReclamo}
+                                    onChange={(e) => setTipoReclamo(e.target.value)}
+                                >
+                                    <option value="comun">Área Común</option>
+                                    <option value="unidad">Unidad</option>
+                                </select>
+                            </div>
+                            {tipoReclamo === 'unidad' && (
+                                <div>
+                                    <label htmlFor="idUnidad">ID de la Unidad: </label>
+                                    <input
+                                        type="text"
+                                        id="idUnidad"
+                                        value={idUnidad}
+                                        onChange={(e) => setIdUnidad(e.target.value)}
+                                    />
+                                    <button className="btn btn-warning" onClick={() => buscarUnidad(idUnidad)}>Buscar Unidad</button>
+                                </div>
+                            )}
+                            <button className="btn btn-warning" onClick={agregarReclamo}>Agregar Reclamo</button>
+                        </>
                     )}
-                    <button className="btn btn-warning" onClick={agregarReclamo}>Agregar Reclamo</button>
                 </div>
             )}
-            {mensaje && <p>{mensaje}</p>}
         </div>
     );
 };

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const LiberarUnidad = () => {
+    const { usuario } = useContext(AuthContext);
     const [idUnidad, setIdUnidad] = useState('');
     const [piso, setPiso] = useState('');
     const [numero, setNumero] = useState('');
@@ -46,6 +48,14 @@ const LiberarUnidad = () => {
             console.error('Error al buscar la unidad:', error);
             setUnidad(null);
         });
+    }
+
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para liberar una unidad</div>;
     }
 
     return (

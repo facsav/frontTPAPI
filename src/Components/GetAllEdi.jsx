@@ -1,20 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { AuthContext } from './AuthContext';
 
 const GetAllEdi = () => {
+    const { usuario } = useContext(AuthContext);
     const [edificios, setEdificios] = useState([]);
 
     useEffect(() => {
-        fetch('/edi', {
-            method: 'GET',
-        })
-        .then(response => response.json())
-        .then(data => {
-            setEdificios(data);
-        })
-        .catch(error => {
-            console.error('Error al obtener los edificios:', error);
-        });
-    }, []);
+        if (usuario && usuario.tipoUser === 'administrador') {
+            fetch('/edi', {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                setEdificios(data);
+            })
+            .catch(error => {
+                console.error('Error al obtener los edificios:', error);
+            });
+        }
+    }, [usuario]);
+
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para ver esta página</div>;
+    }
 
     return (
         <div className="container">

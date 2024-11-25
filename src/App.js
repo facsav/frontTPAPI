@@ -22,6 +22,9 @@ import VerReclamos from './Components/VerReclamos';
 import GetAllReclamos from './Components/GetAllReclamos';
 
 import AddReclamo from './Components/AddReclamo';
+import CambiarEstado from './Components/CambiarEstado';
+
+import VerReclamosDeEdificio from './Components/VerReclamosDeEdificio';
 
 // Definición del componente principal App
 const App = () => {
@@ -36,25 +39,41 @@ const App = () => {
             <Route path="/menu" element={<Menu/>}/>
 
             {/* Edificio */}
-            <Route path="/addEdificio" element={<AddEdificio/>}/>
+            {/* FUNCIONAN PIOLA */}
+            <Route path="/addEdificio" element={<AddEdificio/>}/> 
             <Route path="/getEdificio" element={<GetEdificio/>}/>
             <Route path='/verEdificios' element= {<GetAllEdi/>}/>
             {/* Persona */}
+            {/* FUNCIONAN PIOLA */}
             <Route path="/addPersona" element={<AddPersona/>}/>
             <Route path="/getPersona" element={<GetPersona/>}/>
+
             {/* Unidades */}
+            {/* FUNCIONAN PIOLA */}
             <Route path="/addUnidad" element={<AddUnidad/>}/>
             <Route path="/getUnidad" element={<GetUnidad/>}/>
 
+            {/* Duenio */}
+            {/* FUNCIONAN PIOLA */}
             <Route path="/addDuenio" element={<AddDuenio/>}/>
+            
+            {/* Inquilino */}
+            {/* FUNCIONAN PIOLA */}
             <Route path="/addInquilino" element={<AddInquilino/>}/>
             <Route path="/liberarUnidad" element={<LiberarUnidad/>}/>
+            
+            {/* no funca */}
             <Route path="/transferirUniDue" element={<TransferirUniDue/>}/>
-            <Route path="/pruebaLog" element={<PruebaLog/>}/>
+
+            {/* Reclamos */}
             <Route path="/verReclamos" element={<VerReclamos/>}/> 
             <Route path="/VerTodosReclamos" element={<GetAllReclamos/>}/> 
 
             <Route path="/addReclamo" element={<AddReclamo/>}/> 
+            <Route path="/CambiarEstado" element={<CambiarEstado/>}/>
+
+            <Route path="/VerReclamosDeEdificio" element={<VerReclamosDeEdificio/>}/>
+
 
 
           </Routes>

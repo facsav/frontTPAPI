@@ -1,6 +1,8 @@
-import { useState } from "react";
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const AddInquilino = () => {
+    const { usuario } = useContext(AuthContext);
     const [idUnidad, setIdUnidad] = useState('');
     const [unidad, setUnidad] = useState(null);
     const [documento, setDocumento] = useState('');
@@ -13,7 +15,7 @@ const AddInquilino = () => {
         })
         .then(response => response.json())
         .then(data => {
-            const unidadEncontrada = data.find(unidad => unidad.identificador == codigo && unidad.habitado == "N");
+            const unidadEncontrada = data.find(unidad => unidad.identificador == codigo );
             if (unidadEncontrada) {
                 setUnidad(unidadEncontrada);
                 console.log("Unidad encontrada:", unidadEncontrada);
@@ -92,7 +94,13 @@ const AddInquilino = () => {
         });
     }
 
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
 
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para agregar un inquilino</div>;
+    }
 
     return(
         <>
@@ -115,7 +123,7 @@ const AddInquilino = () => {
                         <h3>Habitado: {unidad.habitado}</h3>
                     </div>
                     <div>
-                        <h3>Ingrese el documento del dueño</h3>
+                        <h3>Ingrese el documento del inquilino</h3>
                         <label htmlFor="documento">: </label>
                         <input
                             type="text"
@@ -145,8 +153,6 @@ const AddInquilino = () => {
 
         </>
     )
-
-
 }
 
 export default AddInquilino;

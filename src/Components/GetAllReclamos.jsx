@@ -67,16 +67,16 @@ const GetAllReclamos = () => {
                         <tbody id="content">
                             {reclamos.map((reclamo, index) => (
                                 <tr /*key={reclamo.id}*/>
-                                <th scope="row">-</th>
-                                <td>{reclamo.reclamoId}</td>
-                                <td>{reclamo.usuario.documento}</td>
-                                <td>{reclamo.edificio.direccion}</td>
-                                <td>{reclamo.unidad.piso}</td>
-                                <td>{reclamo.unidad.numero}</td>
-                                <td>{reclamo.descripcion}</td>
-                                <td>{reclamo.ubicacion}</td>
-                                <td>{reclamo.fecha}</td>
-                                <td>{reclamo.estado}</td>
+                                    <th scope="row">-</th>
+                                    <td>{reclamo.reclamoId}</td>
+                                    <td>{reclamo.usuario.documento}</td>
+                                    <td>{reclamo.edificio.direccion}</td>
+                                    <td>{reclamo.unidad ? (reclamo.unidad.piso ? reclamo.unidad.piso : "Área común") : "-"}</td>
+                                    <td>{reclamo.unidad ? (reclamo.unidad.numero ? reclamo.unidad.numero : "Área común") : "-"}</td>
+                                    <td>{reclamo.descripcion}</td>
+                                    <td>{reclamo.ubicacion}</td>
+                                    <td>{reclamo.fecha}</td>
+                                    <td>{reclamo.estado}</td>
                             </tr>
                             ))}
                         </tbody>

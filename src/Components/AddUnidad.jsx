@@ -1,10 +1,13 @@
-import { useState } from "react";
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const AddUnidad = () => {
+    const { usuario } = useContext(AuthContext);
     const [edificio, setEdificio] = useState(null);
     const [codigoEdificio, setCodigoEdificio] = useState("");
     const [piso, setPiso] = useState("");
     const [numero, setNumero] = useState("");
+    const [mensajeExito, setMensajeExito] = useState('');
 
     const buscarEdificio = (codigo) => {
         fetch('/edi', {
@@ -47,16 +50,33 @@ const AddUnidad = () => {
             },
             body: JSON.stringify(Unidad),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error en la respuesta del servidor');
+            }
+            return response.text(); // Cambiado a text() para manejar respuestas en texto plano
+        })
         .then(data => {
-            console.log('Unidad agregada:', data);
+            alert('Unidad agregada con éxito');
+            setMensajeExito('Unidad agregada con éxito');
             // Limpiar el formulario después de agregar la unidad
             setPiso("");
             setNumero("");
+            setTimeout(() => {
+                setMensajeExito('');
+            }, 3000);
         })
         .catch(error => {
             console.error('Error al agregar Unidad:', error);
         });
+    }
+
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para agregar una unidad</div>;
     }
 
     return (
@@ -101,6 +121,7 @@ const AddUnidad = () => {
                     </div>
                     <h3>Si desea agregar una unidad presione el botón:</h3>
                     <button className="btn btn-warning" onClick={agregarUnidad}>Agregar</button>
+                    {mensajeExito && <div className="mensaje-exito">{mensajeExito}</div>}
                 </div>
             )}
         </>

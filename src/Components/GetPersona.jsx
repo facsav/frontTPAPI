@@ -1,9 +1,11 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 const GetPersona = () => {
-
+    const { usuario } = useContext(AuthContext);
     const [documento, setDocumento] = useState("");
     const [persona, setPersona] = useState(null);
+    const [mensaje, setMensaje] = useState('');
 
     const deletePersona = (documento) => {
         fetch(`/removePersona/${documento}`, {
@@ -18,9 +20,13 @@ const GetPersona = () => {
         })
         .then(message => {
             console.log(message);
+            setMensaje('Persona eliminada exitosamente');
             setPersona(null); // Limpiar el estado de persona después de eliminarlo
         })
-        .catch(err => console.error('Error:', err));
+        .catch(err => {
+            console.error('Error:', err);
+            setMensaje('Error al eliminar la persona');
+        });
     }
 
     const buscarPersona = (documento) => {
@@ -41,35 +47,37 @@ const GetPersona = () => {
         });
     }
 
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para ver esta página</div>;
+    }
+
     return (
         <>
             <h1>Buscar Persona</h1>
+            {mensaje && <p>{mensaje}</p>}
             <input
                 type="text"
                 value={documento}
                 onChange={(e) => setDocumento(e.target.value)}
-                placeholder="Documento de la persona"
+                placeholder="Ingrese el Documento de la Persona"
             />
-            <button className="btn btn-warning" onClick={() => buscarPersona(documento)}>Buscar Persona</button>
-
+            <button onClick={() => buscarPersona(documento)}>Buscar</button>
             {persona && (
                 <div>
-                    {console.log(persona)}
-                    <h1>Persona encontrado</h1>
-                    <div>
-                        <h2>Documento: {persona.documento}</h2>
-                        <h2>Nombre: {persona.nombre}</h2>
-                        <h2>Nombre de usuario: {persona.nombreUser}</h2>
-                        <h2>tipo user: {persona.tipoUser}</h2>
-                    </div>
-                    <h3>Si desea borrarlo presione el botón:</h3>
-                    <button className="btn btn-warning" onClick={() => deletePersona(documento)}>Borrar persona</button>
+                    <h2>Persona Encontrada</h2>
+                    <p>Documento: {persona.documento}</p>
+                    <p>Nombre: {persona.nombre}</p>
+                    <p>Nombre de Usuario: {persona.nombreUser}</p>
+                    <p>Tipo de Usuario: {persona.tipoUser}</p>
+                    <button onClick={() => deletePersona(persona.documento)}>Eliminar Persona</button>
                 </div>
             )}
         </>
     );
-
-
-}
+};
 
 export default GetPersona;

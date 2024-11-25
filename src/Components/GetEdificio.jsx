@@ -1,11 +1,11 @@
-import { useState } from "react";
-
-//METODOS GET EDIFICIO POR ID Y METODO BORRAR
-
+import React, { useContext, useState } from "react";
+import { AuthContext } from "./AuthContext";
 
 const GetEdificio = () => {
+    const { usuario } = useContext(AuthContext);
     const [idEdificio, setIdEdificio] = useState("");
     const [edificio, setEdificio] = useState(null);
+    const [mensaje, setMensaje] = useState('');
 
     const deleteEdifico = (codigo) => {
         fetch(`/removeEdificio/${codigo}`, {
@@ -20,9 +20,13 @@ const GetEdificio = () => {
         })
         .then(message => {
             console.log(message);
+            setMensaje('Edificio eliminado exitosamente');
             setEdificio(null); // Limpiar el estado del edificio después de eliminarlo
         })
-        .catch(err => console.error('Error:', err));
+        .catch(err => {
+            console.error('Error:', err);
+            setMensaje('Error al eliminar el edificio');
+        });
     }
 
     const buscarEdificio = (codigo) => {
@@ -43,33 +47,36 @@ const GetEdificio = () => {
         });
     }
 
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para ver esta página</div>;
+    }
+
     return (
         <>
             <h1>Buscar Edificio</h1>
+            {mensaje && <p>{mensaje}</p>}
             <input
                 type="text"
                 value={idEdificio}
                 onChange={(e) => setIdEdificio(e.target.value)}
-                placeholder="Id del edificio"
+                placeholder="Ingrese el ID del Edificio"
             />
-            <button className="btn btn-warning" onClick={() => buscarEdificio(idEdificio)}>Buscar edificio</button>
-
+            <button onClick={() => buscarEdificio(idEdificio)}>Buscar</button>
             {edificio && (
-                console.log(edificio),
                 <div>
-                    <h1>Edificio encontrado</h1>
-                    <div>
-                        <h2>Nombre: {edificio.nombre}</h2>
-                        <h2>Dirección: {edificio.direccion}</h2>
-                        <h2>Código: {edificio.codigo}</h2>
-                    </div>
-                    <h3>Si desea borrarlo presione el botón:</h3>
-                    <button className="btn btn-warning" onClick={() => deleteEdifico(idEdificio)}>Borrar edificio</button>
+                    <h2>Edificio Encontrado</h2>
+                    <p>ID: {edificio.codigo}</p>
+                    <p>Nombre: {edificio.nombre}</p>
+                    <p>Dirección: {edificio.direccion}</p>
+                    <button onClick={() => deleteEdifico(edificio.codigo)}>Eliminar Edificio</button>
                 </div>
             )}
         </>
     );
-}
+};
 
 export default GetEdificio;
-

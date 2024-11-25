@@ -1,6 +1,8 @@
-import React, { useState} from 'react';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from './AuthContext';
 
 const GetUnidad = () => {
+    const { usuario } = useContext(AuthContext);
     const [idUnidad, setIdUnidad] = useState("");
     const [unidad, setUnidad] = useState(null);
     const [edificio, setEdificio] = useState(null);
@@ -18,8 +20,12 @@ const GetUnidad = () => {
         })
         .then(message => {
             setUnidad(null); // Limpiar el estado de la unidad después de eliminarla
+            alert('Unidad eliminada con éxito');
         })
-        .catch(err => console.error('Error:', err));
+        .catch(err => {
+            console.error('Error:', err);
+            alert('Error al eliminar la unidad');
+        });
     }
 
     const buscarUnidad = (codigo) => {
@@ -54,6 +60,13 @@ const GetUnidad = () => {
         });
     }
 
+    if (!usuario) {
+        return <div>No hay usuario logueado</div>;
+    }
+
+    if (usuario.tipoUser !== 'administrador') {
+        return <div>No tiene permisos para ver esta página</div>;
+    }
 
     return (
         <>
@@ -66,8 +79,8 @@ const GetUnidad = () => {
             />
             <button className="btn btn-warning" onClick={() => buscarUnidad(idUnidad)}>Buscar unidad</button>
 
-      {      console.log(edificio)}
-      {      console.log(unidad)}
+            {console.log(edificio)}
+            {console.log(unidad)}
             {unidad && (
                 <>
                 <div>
@@ -82,11 +95,11 @@ const GetUnidad = () => {
                         )}
 
                         <h2>Piso: {unidad.piso}</h2>
-                        <h2>Numero de departamento: {unidad.nuemro}</h2>
+                        <h2>Numero de departamento: {unidad.numero}</h2>
                         <h2>Habitado: {unidad.habitado}</h2>
                     </div>
                     <h3>Si desea borrarlo presione el botón:</h3>
-                    <button className="btn btn-warning" onClick={() => deleteUnidad(idUnidad)}>Borrar edificio</button>
+                    <button className="btn btn-warning" onClick={() => deleteUnidad(idUnidad)}>Borrar unidad</button>
                 </div>
                 </>
             )}

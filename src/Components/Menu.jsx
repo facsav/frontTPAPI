@@ -28,11 +28,25 @@ const Menu = () => {
                     <button class="btn btn-warning" onClick={() => navigate('/addPersona')}>Agregar Persona</button>
                     <button class="btn btn-warning" onClick={() => navigate('/addUnidad')}>Agregar Unidad</button>
                     <button class="btn btn-warning" onClick={() => navigate('/getPersona')}>Ver y borrar personas</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/getUnidad')}>Ver y borrar unidades</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/addDuenio')}>Agregar Dueño</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/addInquilino')}>Agregar Inquilino</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/liberarUnidad')}>Liberar Unidad</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/transferirUniDue')}>Transferir Unidad a Dueño</button>
+
+
+
+                    <button class="btn btn-warning" onClick={() => navigate('/verReclamos')}>Ver reclamos</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/addReclamo')}>agregar reclamos</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/VerTodosReclamos')}>ver todos los reclamos</button>
                 </>
             ) : (
                 <>
                     <h2>Permisos General</h2>
                     <button onClick={handleLogout}>Cerrar Sesión</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/verReclamos')}>Ver reclamos</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/addReclamo')}>agregar reclamos</button>
+                    <button class="btn btn-warning" onClick={() => navigate('/VerTodosReclamos')}>ver todos los reclamos</button>
                 </>
             )}
         </div>
